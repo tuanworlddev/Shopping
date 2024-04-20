@@ -226,3 +226,45 @@ fun ThemeProduct(product: Product) {
         SpacerWidth(int = 20)
     }
 }
+
+@Composable
+fun ThemeDefaultProduct() {
+    Row(modifier = Modifier
+        .height(80.dp)
+        .fillMaxWidth(), ) {
+        SpacerWidth(int = 20)
+        Box(modifier = Modifier
+            .weight(1f)
+            .fillMaxHeight()
+            .align(Alignment.CenterVertically)) {
+            androidx.compose.foundation.Image(painter = painterResource(id = R.drawable.defaultimage),
+                contentDescription = null, modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.Center))
+
+        }
+        SpacerWidth(int = 20)
+    }
+}
+
+@Composable
+fun ThemeProduct() {
+    Row(modifier = Modifier
+        .height(80.dp)
+        .fillMaxWidth(), ) {
+        SpacerWidth(int = 20)
+        Box(modifier = Modifier
+            .weight(1f)
+            .fillMaxHeight()
+            .align(Alignment.CenterVertically)) {
+            androidx.compose.foundation.Image(painter = painterResource(id = R.drawable.product),
+                contentDescription = null, modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.Center))
+
+        }
+        SpacerWidth(int = 20)
+    }
+}

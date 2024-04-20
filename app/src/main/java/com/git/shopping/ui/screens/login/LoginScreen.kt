@@ -24,3 +24,18 @@ fun LoginScreen() {
         ContinueWith()
     }
 }
+
+@Composable
+fun ContinueSign() {
+    Column {
+        SpacerHeight(int = 123)
+        TitleLogin(text = "Sign in")
+        SpacerHeight(int = 40)
+        AreaFill(text1 = "Password")
+        SpacerHeight(int = 20)
+        ButtonInterface(title = "Continue")
+        SpacerHeight(int = 20)
+        TitleWhenLogin(question = "Forgot Password ? ", solution = "Reset")
+
+    }
+}

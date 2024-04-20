@@ -1,4 +1,4 @@
-package com.git.shopping.ui.screens.dashboarn
+package com.git.shopping.ui.screens.dashboard
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

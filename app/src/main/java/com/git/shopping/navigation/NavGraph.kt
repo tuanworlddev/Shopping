@@ -15,7 +15,8 @@ import com.git.shopping.ui.screens.login.LoginScreen
 import com.git.shopping.ui.screens.notification.NotificationScreen
 import com.git.shopping.ui.screens.order.OrderScreen
 import com.git.shopping.ui.screens.profile.ProfileScreen
-import com.git.shopping.ui.screens.register.RegisterScreen
+import com.git.shopping.ui.screens.register.CreateAccount
+
 
 @Composable
 fun NavGraph(
@@ -58,7 +59,7 @@ fun NavGraph(
             LoginScreen()
         }
         composable("register") {
-            RegisterScreen()
+            CreateAccount()
         }
         composable("profile") {
             ProfileScreen(navController = navHostController)
