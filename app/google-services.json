@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "216803012722",
+    "project_id": "sopping-tuandev",
+    "storage_bucket": "sopping-tuandev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216803012722:android:29a1d8c5253ff6e78e92eb",
+        "android_client_info": {
+          "package_name": "com.git.shopping"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAe3ijqHy70TLj-EMoiu4fG-ONMzt0rT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
