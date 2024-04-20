@@ -1,5 +1,6 @@
 package com.git.shopping.navigation
 
+import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -8,19 +9,25 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.git.shopping.constants.Screen
+import com.git.shopping.models.Category
+import com.git.shopping.ui.screens.auth.AuthViewModel
 import com.git.shopping.ui.screens.card.CardScreen
+import com.git.shopping.ui.screens.category.CategoryViewModel
 import com.git.shopping.ui.screens.category.create.CreateCategoryScreen
 import com.git.shopping.ui.screens.home.HomeScreen
-import com.git.shopping.ui.screens.login.LoginScreen
+import com.git.shopping.ui.screens.auth.login.LoginScreen
 import com.git.shopping.ui.screens.notification.NotificationScreen
 import com.git.shopping.ui.screens.order.OrderScreen
 import com.git.shopping.ui.screens.profile.ProfileScreen
-import com.git.shopping.ui.screens.register.RegisterScreen
+import com.git.shopping.ui.screens.auth.register.RegisterScreen
 
 @Composable
 fun NavGraph(
     navHostController: NavHostController,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    context: Context,
+    categoryViewModel: CategoryViewModel,
+    authViewModel: AuthViewModel
 ) {
     NavHost(
         navController = navHostController,
@@ -49,19 +56,28 @@ fun NavGraph(
 
         }
         composable("create_category") {
-            CreateCategoryScreen()
+            CreateCategoryScreen(
+                context = context,
+                onCreateCategory = {
+                    categoryViewModel.addCategory(Category(id = null, name = it))
+                }
+            )
         }
         composable("category_detail") {
 
         }
         composable("login") {
-            LoginScreen()
+            LoginScreen(context = context, navController = navHostController,onLogin = { email, password ->
+                authViewModel.onLogin(email, password)
+            })
         }
         composable("register") {
-            RegisterScreen()
+            RegisterScreen(context = context, navController = navHostController, onRegister = { email, password ->
+                authViewModel.onRegister(email, password)
+            })
         }
         composable("profile") {
-            ProfileScreen(navController = navHostController)
+            ProfileScreen(navController = navHostController, authViewModel = authViewModel)
         }
     }
 }

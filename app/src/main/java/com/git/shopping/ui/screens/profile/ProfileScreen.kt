@@ -14,11 +14,14 @@ import androidx.navigation.NavController
 import com.git.shopping.R
 import com.git.shopping.constants.Screen
 import com.git.shopping.ui.components.SpacerHeight
+import com.git.shopping.ui.screens.auth.AuthViewModel
 
 @Composable
 fun ProfileScreen(
-    navController: NavController
+    navController: NavController,
+    authViewModel: AuthViewModel
 ) {
+    
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -34,15 +37,24 @@ fun ProfileScreen(
             Button(onClick = { navController.navigate(Screen.RegisterScreen.route) }) {
                 Text(text = stringResource(id = R.string.register))
             }
-            SpacerHeight(height = 10)
-            Button(onClick = { navController.navigate(Screen.CreateProductScreen.route) }) {
-                Text(text = stringResource(id = R.string.create_product))
+            if (authViewModel.userCurrent != null) {
+                SpacerHeight(height = 10)
+                Button(onClick = { navController.navigate(Screen.CreateProductScreen.route) }) {
+                    Text(text = stringResource(id = R.string.create_product))
+                }
+                SpacerHeight(height = 10)
+                Button(onClick = { navController.navigate(Screen.CreateCategoryScreen.route) }) {
+                    Text(text = stringResource(id = R.string.create_category))
+                }
+                SpacerHeight(height = 10)
+                Button(onClick = {
+                    authViewModel.logout()
+                    navController.navigate(Screen.LoginScreen.route)
+                }
+                ) {
+                    Text(text = "Logout")
+                }
             }
-            SpacerHeight(height = 10)
-            Button(onClick = { navController.navigate(Screen.CreateCategoryScreen.route) }) {
-                Text(text = stringResource(id = R.string.create_category))
-            }
-            SpacerHeight(height = 10)
         }
     }
 }

@@ -1,10 +1,8 @@
-package com.git.shopping.ui.screens.category.create
+package com.git.shopping.ui.screens.auth.login
 
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,27 +22,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.git.shopping.R
+import com.git.shopping.constants.Screen
 import com.git.shopping.ui.components.SpacerHeight
-import com.git.shopping.ui.components.SpacerWidth
-import com.git.shopping.ui.theme.BgSuccess
 import com.git.shopping.ui.theme.Black50
-import com.git.shopping.ui.theme.BorderSuccess
 import com.git.shopping.ui.theme.Light2
-import com.git.shopping.ui.theme.TextSuccess
 import com.git.shopping.ui.theme.circularFont
 
 @Composable
-fun CreateCategoryScreen(
+fun LoginScreen(
     context: Context,
-    onCreateCategory: (String) -> Unit
+    navController: NavController,
+    onLogin: (String, String) -> Boolean
 ) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -53,46 +52,19 @@ fun CreateCategoryScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var name by remember {
-                mutableStateOf("")
-            }
-            var messageState by remember {
-                mutableStateOf("")
-            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.secondaryContainer)
             ) {
                 Text(
-                    text = stringResource(id = R.string.create_category),
+                    text = stringResource(id = R.string.login),
                     fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                     color = Color.Black,
                     modifier = Modifier.padding(10.dp)
                 )
             }
             SpacerHeight(height = 20)
-            if (messageState.isNotEmpty()) {
-                Surface(
-                    modifier = Modifier.padding(10.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(BgSuccess, shape = MaterialTheme.shapes.small)
-                            .border(1.dp, BorderSuccess, MaterialTheme.shapes.small)
-                            .padding(10.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = messageState,
-                            color = TextSuccess
-                        )
-                    }
-                }
-            }
-            SpacerHeight(height = 10)
             val placeholderStyle = TextStyle.Default.copy(fontWeight = FontWeight.Light, fontFamily = circularFont, color = Black50)
             Row {
                 Surface(
@@ -102,22 +74,34 @@ fun CreateCategoryScreen(
                         .weight(1f)
                         .padding(10.dp)
                 ) {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier
-                            .weight(1f)
-                            .background(
-                                color = Light2
-                            ),
-                        placeholder =  { Text(text = "Enter product category", style = placeholderStyle) },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Black50
+                    Column(modifier = Modifier.padding(10.dp)) {
+                        OutlinedTextField(
+                            value = email,
+                            onValueChange = { email = it },
+                            shape = RoundedCornerShape(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 15.dp),
+                            placeholder = { Text(text = "Enter email", style = placeholderStyle) },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Black50
+                            )
                         )
-
-                    )
+                        OutlinedTextField(
+                            value = password,
+                            onValueChange = { password = it },
+                            shape = RoundedCornerShape(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 15.dp),
+                            placeholder = { Text(text = "Enter password", style = placeholderStyle) },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Black50
+                            )
+                        )
+                    }
                 }
             }
             SpacerHeight(height = 20)
@@ -126,20 +110,28 @@ fun CreateCategoryScreen(
             ) {
                 Button(
                     onClick = {
-                        messageState = ""
-                        if (name.isBlank()) {
-                            Toast.makeText(context, "Name is required", Toast.LENGTH_SHORT).show()
+                        if (email.isBlank()) {
+                            Toast.makeText(context, "Email is required", Toast.LENGTH_SHORT).show()
+                        } else if (!isEmailValid(email)) {
+                            Toast.makeText(context, "Invalid email format", Toast.LENGTH_SHORT).show()
+                        } else if (password.length < 6) {
+                            Toast.makeText(context, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
                         } else {
-                            onCreateCategory(name)
-                            name = ""
-                            messageState = "Added category successfully!"
+                            if (onLogin(email, password)) {
+                                Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show()
+                                navController.navigate(Screen.HomeScreen.route)
+                            }
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = stringResource(id = R.string.add))
+                    Text(text = stringResource(id = R.string.login))
                 }
             }
         }
     }
+}
+
+private fun isEmailValid(email: String): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }

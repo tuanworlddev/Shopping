@@ -1,6 +1,6 @@
 package com.git.shopping.models
 
 data class Category(
-    val id: String?,
+    var id: String?,
     val name: String
 )
