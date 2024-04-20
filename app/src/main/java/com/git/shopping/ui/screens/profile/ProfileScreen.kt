@@ -30,19 +30,19 @@ fun ProfileScreen(
             ) {
                 Text(text = stringResource(id = R.string.login))
             }
-            SpacerHeight(height = 10)
+            SpacerHeight(int = 10)
             Button(onClick = { navController.navigate(Screen.RegisterScreen.route) }) {
                 Text(text = stringResource(id = R.string.register))
             }
-            SpacerHeight(height = 10)
+            SpacerHeight(int = 10)
             Button(onClick = { navController.navigate(Screen.CreateProductScreen.route) }) {
                 Text(text = stringResource(id = R.string.create_product))
             }
-            SpacerHeight(height = 10)
+            SpacerHeight(int = 10)
             Button(onClick = { navController.navigate(Screen.CreateCategoryScreen.route) }) {
                 Text(text = stringResource(id = R.string.create_category))
             }
-            SpacerHeight(height = 10)
+            SpacerHeight(int = 10)
         }
     }
 }

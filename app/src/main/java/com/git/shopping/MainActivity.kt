@@ -15,6 +15,9 @@ import androidx.navigation.compose.rememberNavController
 import com.git.shopping.navigation.NavGraph
 import com.git.shopping.ui.components.BottomBar
 import com.git.shopping.ui.components.TopBar
+import com.git.shopping.ui.screens.dashboarn.DashBoard
+import com.git.shopping.ui.screens.home.HomeScreen
+import com.git.shopping.ui.screens.login.LoginScreen
 import com.git.shopping.ui.theme.ShoppingTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,5 +39,13 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun GreetingPreview() {
+    ShoppingTheme {
+        DashBoard()
     }
 }
