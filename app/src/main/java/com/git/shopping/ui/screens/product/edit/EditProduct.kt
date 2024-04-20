@@ -1,4 +1,4 @@
-package com.git.shopping.ui.screens.product.create
+package com.git.shopping.ui.screens.product.edit
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,32 +12,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.git.shopping.constants.Screen
-import com.git.shopping.ui.components.AreaFill
+import com.git.shopping.ui.components.AreaFillWithDefaultValue
 import com.git.shopping.ui.components.ButtonBackAndTitle
 import com.git.shopping.ui.components.ButtonInterface
 import com.git.shopping.ui.components.ButtonResize
 import com.git.shopping.ui.components.SpacerHeight
 import com.git.shopping.ui.components.SpacerWidth
-import com.git.shopping.ui.components.ThemeDefaultProduct
+import com.git.shopping.ui.components.ThemeProduct
 import com.git.shopping.ui.components.TitleClothEdit
 import com.git.shopping.ui.theme.circularFont
 
 @Composable
-fun CreateProductScreen() {
-
-}
-
-@Composable
-fun CreateProduct() {
+fun EditProductScreen() {
     Column {
         SpacerHeight(int = 60)
-        ButtonBackAndTitle(text = "Add Product")
+        ButtonBackAndTitle(text = "Edit Product")
         SpacerHeight(int = 20)
-        ThemeDefaultProduct()
+        ThemeProduct()
         SpacerHeight(int = 20)
         TitleClothEdit(title = "Name")
-        AreaFill(text1 = "Name")
+        AreaFillWithDefaultValue(title = "Name", defaultValue = "Hoodie E T K")
         Row {
             Row(modifier = Modifier
                 .weight(1f)
@@ -51,7 +45,7 @@ fun CreateProduct() {
                             Box(modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()) {
-                                AreaFill(text1 = "Price")
+                                AreaFillWithDefaultValue(title = "Price", defaultValue = "100")
                             }
                             Text(text = "$", fontFamily = circularFont, fontSize = 22.sp,
                                 modifier = Modifier.align(Alignment.CenterVertically))
@@ -68,7 +62,7 @@ fun CreateProduct() {
                             Box(modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()) {
-                                AreaFill(text1 = "Quantity")
+                                AreaFillWithDefaultValue(title = "Quantity", defaultValue = "100")
                             }
                         }
                     }
@@ -85,7 +79,7 @@ fun CreateProduct() {
                     .weight(1f)
                     .fillMaxHeight()){
                     Column {
-                        TitleClothEdit(title = "UploadImage")
+                        TitleClothEdit(title = "ReUpImage")
                         ButtonInterface(title = "Upload")
                     }
                 }
@@ -98,7 +92,7 @@ fun CreateProduct() {
                             Box(modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()) {
-                                AreaFill(text1 = "Sale")
+                                AreaFillWithDefaultValue(title = "Sale", defaultValue = "100")
                             }
                             Text(text = "%", fontFamily = circularFont, fontSize = 22.sp,
                                 modifier = Modifier.align(Alignment.CenterVertically))

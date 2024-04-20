@@ -62,7 +62,7 @@ fun CreateCategoryScreen() {
                     modifier = Modifier.padding(10.dp)
                 )
             }
-            SpacerHeight(height = 20)
+            SpacerHeight(int = 20)
             if (messageState.isNotEmpty()) {
                 Row(
 
@@ -70,7 +70,7 @@ fun CreateCategoryScreen() {
 
                 }
             }
-            SpacerHeight(height = 15)
+            SpacerHeight(int = 15)
             val placeholderStyle = TextStyle.Default.copy(fontWeight = FontWeight.Light, fontFamily = circularFont, color = Black50)
             Row {
                 Surface(
@@ -98,7 +98,7 @@ fun CreateCategoryScreen() {
                     )
                 }
             }
-            SpacerHeight(height = 20)
+            SpacerHeight(int = 20)
             Surface(
                 modifier = Modifier.padding(10.dp)
             ) {
