@@ -14,6 +14,12 @@ val Primary100 = Color(0xFF8E6CEF)
 val Light1 = Color(0xFFFFFFFF)
 val Light2 = Color(0xFFF4F4F4)
 val Black50 = Color(0x80272727)
+
 val BgSuccess = Color(0xFFD1E7DD)
 val BorderSuccess = Color(0xFFA3CFBB)
 val TextSuccess = Color(0xFF0A3622)
+
+
+val MainPurple = Color(0xFF8E6CEF)
+val MainGray = Color(224, 224, 224, 255)
+val PlaceHolderColor = Color(0x9C9B9B9B)

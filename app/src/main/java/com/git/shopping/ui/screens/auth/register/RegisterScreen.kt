@@ -33,6 +33,8 @@ import androidx.navigation.NavController
 import com.git.shopping.R
 import com.git.shopping.constants.Screen
 import com.git.shopping.ui.components.SpacerHeight
+import com.git.shopping.ui.screens.auth.AuthListener
+import com.git.shopping.ui.screens.auth.AuthViewModel
 import com.git.shopping.ui.theme.Black50
 import com.git.shopping.ui.theme.Light2
 import com.git.shopping.ui.theme.circularFont
@@ -41,7 +43,7 @@ import com.git.shopping.ui.theme.circularFont
 fun RegisterScreen(
     context: Context,
     navController: NavController,
-    onRegister: (String, String) -> Boolean
+    authViewModel: AuthViewModel
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -67,7 +69,7 @@ fun RegisterScreen(
                     modifier = Modifier.padding(10.dp)
                 )
             }
-            SpacerHeight(height = 20)
+            SpacerHeight(int = 20)
             val placeholderStyle = TextStyle.Default.copy(fontWeight = FontWeight.Light, fontFamily = circularFont, color = Black50)
             Row {
                 Surface(
@@ -119,7 +121,7 @@ fun RegisterScreen(
                     }
                 }
             }
-            SpacerHeight(height = 20)
+            SpacerHeight(int = 20)
             Surface(
                 modifier = Modifier.padding(10.dp)
             ) {
@@ -134,10 +136,17 @@ fun RegisterScreen(
                         } else if (password != confirmPassword) {
                             Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
                         } else {
-                            if (onRegister(email, password)) {
-                                Toast.makeText(context, "Created account successfully", Toast.LENGTH_SHORT).show()
-                                navController.navigate(Screen.LoginScreen.route)
-                            }
+                            authViewModel.onRegister(email, password, object : AuthListener{
+                                override fun onSuccess() {
+                                    Toast.makeText(context, "Register successfully", Toast.LENGTH_SHORT).show()
+                                    navController.navigate(Screen.LoginScreen.route)
+                                }
+
+                                override fun onFailure(message: String) {
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                }
+
+                            })
                         }
                     },
                     modifier = Modifier.fillMaxWidth()

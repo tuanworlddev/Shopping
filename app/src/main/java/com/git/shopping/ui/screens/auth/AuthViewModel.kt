@@ -1,44 +1,41 @@
 package com.git.shopping.ui.screens.auth
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import com.git.shopping.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
 
 class AuthViewModel() : ViewModel() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    val userCurrent = FirebaseAuth.getInstance().currentUser
+    var userCurrent = firebaseAuth.currentUser
 
-
-    fun onLogin(email: String, password: String): Boolean {
+    fun onLogin(email: String, password: String, loginListener: AuthListener) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("login", "Đăng nhập thành công!")
-                    return@addOnCompleteListener
+                    loginListener.onSuccess()
+                    userCurrent = firebaseAuth.currentUser
                 } else {
-                    Log.w("login", "Đăng nhập thất bại!", task.exception)
+                    loginListener.onFailure("Login error: ${task.exception}")
                 }
             }
-        return false
     }
-    fun onRegister(email: String, password: String): Boolean {
+    fun onRegister(email: String, password: String, registerListener: AuthListener) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("register", "Đăng ký thành công!")
-                    return@addOnCompleteListener
+                    registerListener.onSuccess()
                 } else {
-                    Log.w("register", "Đăng ký thất bại!", task.exception)
+                    registerListener.onFailure("Register error: ${task.exception}")
                 }
             }
-        return false
     }
 
     fun logout() {
         firebaseAuth.signOut()
+        userCurrent = firebaseAuth.currentUser
     }
+
 }
